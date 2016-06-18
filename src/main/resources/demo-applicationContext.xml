@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--<context:annotation-config />-->
+    <import resource="guice-demo-props.xml"/>
+
+    <bean name="myAppStarter" class="io.logz.demo.spring.xml.MyAppStarter">
+        <property name="accountsService" ref="accountsService"/>
+    </bean>
+
+    <bean id="accountsService" class="io.logz.demo.spring.xml.AccountsService">
+        <property name="alertsService" ref="alertsService"/>
+        <property name="auditService" ref="auditService"/>
+        <property name="accountsDAO" ref="accountsDAO"/>
+        <property name="configDeployer" ref="configDeployer"/>
+        <property name="originService" ref="originService"/>
+        <property name="dnsService" ref="dnsService"/>
+<!--
+        <property name="maxAccountsPerUser" value="3"/>
+-->
+        <property name="maxAccountsPerUser" value="${accounts.maxPerUser}"/>
+    </bean>
+
+    <bean id="alertsService" class="io.logz.demo.spring.xml.AlertsService">
+        <property name="auditService" ref="auditService" />
+    </bean>
+
+    <bean id="auditService" class="io.logz.demo.spring.xml.AuditService">
+    </bean>
+
+    <bean id="accountsDAO" class="io.logz.demo.spring.xml.AccountsDAO">
+    </bean>
+
+    <bean id="configDeployer" class="io.logz.demo.spring.xml.ConfigDeployer">
+    </bean>
+
+    <bean id="originService" class="io.logz.demo.spring.xml.OriginService">
+    </bean>
+
+    <bean id="dnsService" class="io.logz.demo.spring.xml.DnsService"/>
+</beans>
